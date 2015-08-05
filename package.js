@@ -1,6 +1,6 @@
 Package.describe({
   name: 'udisun:stacksight',
-  version: '0.1.0',
+  version: '0.1.2',
   // Brief, one-line summary of the package.
   summary: 'The official Meteor-StackSight Package Integration',
   // URL to the Git repository containing the source code for this package.
@@ -14,7 +14,9 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
 
   // Meteor packages
-  api.use(['underscore', 'http', 'differential:event-hooks']);
+  api.use(['underscore', 'http']);
+  api.use(['differential:event-hooks@1.5.0']);
+  api.use(['dbarrett:dropzonejs@4.0.2'], { weak: true });
 
   // Settings
   api.addFiles('private/settings.js', ['server', 'client']);

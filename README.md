@@ -1,5 +1,7 @@
-#Stacksight
-##Installation
+# Stacksight
+
+## Installation
+
 ```
 meteor add udisun:stacksight
 ```
