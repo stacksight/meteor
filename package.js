@@ -27,7 +27,8 @@ Package.onUse(function(api) {
 
   // Server files
   api.addFiles('server/stacksight.methods.js', ['server']);
-  api.addFiles('server/lib/stacksight.js', ['server']);
+  api.addFiles('server/hooks/users.methods.js', ['server']);
+  api.addFiles('server/lib/init.hooks.js', ['server']);
 });
 
 Package.onTest(function(api) {
@@ -38,5 +39,5 @@ Package.onTest(function(api) {
 
 /* This lets you use npm packages in your package*/
 Npm.depends({
-  "stacksight": "1.0.16"
+  "stacksight": "1.0.21"
 });
