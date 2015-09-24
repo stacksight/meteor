@@ -1,13 +1,13 @@
-Meteor.startup(function() {
-	if (typeof Package['dbarrett:dropzonejs'] !== 'undefined') {
-		Template.dropzone.onRendered(function() {
-			_.each(Dropzone.instances, function(dropz) {
-				
-				// Attach our event on dropzone 'thumbnail' event
-				dropz.on('thumbnail', function(file, dataUrl) { 
-					Meteor.call('pushImage', dataUrl);
-				});
-			});
-		});
-	}
+"use strict";
+
+Meteor.startup(function () {
+    if (Meteor.isClient) {
+        if (typeof Package['dbarrett:dropzonejs'] !== 'undefined') {
+            console.log('onRedered pre outside');
+            console.log(Template.body);
+            Template.body.onRendered(function () {
+                console.log('onRedered outside');
+            });
+        }
+    }
 });
