@@ -2,13 +2,13 @@
 
 var appId = Meteor.call('stacksightSessionUp');
 
-var sts = Npm.require('stacksight')({
+var stacknode = Npm.require('stacksight')({
     user: settings.meanDevToken,
     appId: appId,
     allow: true
 });
 
-sts.session.up();
+stacknode.session.up();
 
 Meteor.methods({
     hookUserLogIn: function (userId) {
@@ -22,7 +22,7 @@ Meteor.methods({
                 name: user.username,
             }
         });
-        sts.events.publish(opts);
+        stacknode.events.publish(opts);
     },
 
     hookUserLogOut: function (userId) {
@@ -36,7 +36,7 @@ Meteor.methods({
                 name: user.username,
             }
         });
-        sts.events.publish(opts);
+        stacknode.events.publish(opts);
     },
 
     hookUserCreate: function (userId) {
@@ -50,7 +50,7 @@ Meteor.methods({
                 name: user.username,
             }
         });
-        sts.events.publish(opts);
+        stacknode.events.publish(opts);
     },
 
     hookUserDelete: function (userId) {
@@ -60,7 +60,7 @@ Meteor.methods({
             name: userId,
             type: 'user'
         });
-        sts.events.publish(opts);
+        stacknode.events.publish(opts);
     },
 
     hookUserCloseSession: function (userId) {
@@ -74,6 +74,6 @@ Meteor.methods({
                 name: user.username,
             }
         });
-        sts.events.publish(opts);
+        stacknode.events.publish(opts);
     }
 });

@@ -10,11 +10,15 @@ Package.describe({
     documentation: 'README.md'
 });
 
+var both = ['client', 'server'];
+
 Package.onUse(function(api) {
     api.versionsFrom('1.1.0.3');
 
     // Meteor packages
     api.use(['underscore', 'http']);
+    api.use(['raix:eventemitter']);
+    //api.use(['matb33:collection-hooks']);
     api.use(['differential:event-hooks@1.5.0']);
     api.use(['dbarrett:dropzonejs@4.0.2'], { weak: true });
 
@@ -28,8 +32,17 @@ Package.onUse(function(api) {
     // Server files
     api.addFiles('server/stacksight.methods.js', ['server']);
     api.addFiles('server/hooks/users.methods.js', ['server']);
+    api.addFiles('server/hooks/files.methods.js', ['server']);
     api.addFiles('server/lib/init.hooks.js', ['server']);
+
+    // Common files
+    api.addFiles('client/init.js', ['client']);
+
+    if (typeof api.export !== 'undefined') {
+        api.export(['StacksightMeteor'], both);
+    }
 });
+
 
 Package.onTest(function(api) {
     api.use('tinytest');

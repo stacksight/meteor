@@ -1,4 +1,4 @@
-"use strict";
+//"use strict";
 
 Meteor.methods({
     stacksightRegister: function (callback) {

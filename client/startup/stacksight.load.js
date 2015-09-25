@@ -1,5 +1,5 @@
 "use strict";
 
-Meteor.startup(function() {
-    Hooks.init({ updateFocus: settings.updateFocus });
+Meteor.startup(function () {
+    Hooks.init({updateFocus: settings.updateFocus});
 });
