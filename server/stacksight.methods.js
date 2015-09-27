@@ -1,7 +1,28 @@
 //"use strict";
+StacksightMeteor = {
+    userInitEvent: function(user) {
+        if(user !== undefined) {
+            if(typeof user !== 'object'){
+                user = Meteor.users.findOne({_id: user});
+            }
+            return (user) ? {
+                user: {
+                    name: user.username,
+                }
+            } : null;
+        } else {
+            var user = Meteor.user();
+            return (Meteor.userId()) ? {
+                user: {
+                    name: user.username,
+                }
+            } : null;
+        }
+    }
+}
 
 Meteor.methods({
-    stacksightRegister: function (callback) {
+    stacksightRegister: function(callback) {
         var body = {
             name: 'meteor-stacksight',
             description: 'first test',
@@ -19,9 +40,9 @@ Meteor.methods({
         };
 
         console.log('about to call post');
-// 		var res = HTTP.post(settings.napi + '/app/init', options);
-//		console.log('res', res);
-//		var meanAppId = '55c1fa06443caf2175424bd8'; //'';
+        // 		var res = HTTP.post(settings.napi + '/app/init', options);
+        //		console.log('res', res);
+        //		var meanAppId = '55c1fa06443caf2175424bd8'; //'';
         var meanAppId = settings.appId; //'';
         // if (res) {
         // 	meanAppId = res.content._id;
@@ -30,15 +51,15 @@ Meteor.methods({
         // 	meanAppId = result.data.app.id;
         // }
 
-        if (meanAppId) {
+        if(meanAppId) {
             console.log('app id', meanAppId);
             return meanAppId;
         }
     },
-    stacksightSessionUp: function () {
+    stacksightSessionUp: function() {
         return Meteor.call('stacksightRegister');
     },
-    getDefaultOpts: function () {
+    getDefaultOpts: function() {
         return {
             desc: ''
         }

@@ -12,30 +12,22 @@ stacknode.session.up();
 
 Meteor.methods({
     hookUserLogIn: function (userId) {
-        var user = Meteor.user();
         console.log('onLoggedIn event', userId);
         var opts = _.extend(Meteor.call('getDefaultOpts'), {
             action: 'logged in',
-            name: '',
             type: 'user',
-            user: {
-                name: user.username,
-            }
-        });
+            name: ''
+        }, StacksightMeteor.userInitEvent(userId));
         stacknode.events.publish(opts);
     },
 
     hookUserLogOut: function (userId) {
-        var user = Meteor.users.findOne({_id: userId});
         console.log('onLoggedOut event', userId);
         var opts = _.extend(Meteor.call('getDefaultOpts'), {
             action: 'logged out',
-            name: '',
             type: 'user',
-            user: {
-                name: user.username,
-            }
-        });
+            name: ''
+        }, StacksightMeteor.userInitEvent(userId));
         stacknode.events.publish(opts);
     },
 
@@ -45,11 +37,8 @@ Meteor.methods({
         var opts = _.extend(Meteor.call('getDefaultOpts'), {
             action: 'added',
             name: user.username,
-            type: 'user',
-            user: {
-                name: user.username,
-            }
-        });
+            type: 'user'
+        }, StacksightMeteor.userInitEvent(user));
         stacknode.events.publish(opts);
     },
 
@@ -69,11 +58,8 @@ Meteor.methods({
         var opts = _.extend(Meteor.call('getDefaultOpts'), {
             action: 'ended the session',
             name: user.username,
-            type: 'user',
-            user: {
-                name: user.username,
-            }
-        });
+            type: 'user'
+        }, StacksightMeteor.userInitEvent(user));
         stacknode.events.publish(opts);
     }
 });
