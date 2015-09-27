@@ -18,8 +18,10 @@ StacksightMeteor = {
                             dataobj = _.extend(dataobj, {
                                 filetype: {subtype: 'image'}
                             });
+                            Meteor.call('hookImageLoad', dataobj);
+                        } else {
+                            Meteor.call('hookFileLoad', dataobj);
                         }
-                        Meteor.call('hookImageLoad', dataobj);
                     }
                     callback.call(Collection, err, fileout);
                 }
