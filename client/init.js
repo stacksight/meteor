@@ -1,8 +1,8 @@
 StacksightMeteor = {
-    stacksightExtendFSInsert: function(Collections) {
-        _.each(Collections, function(Collection) {
-            var insert_func = Collection.insert;
-            Collection.insert = function(file, callback) {
+    extendsFS: function(collections) {
+        _.each(collections, function(collection) {
+            var insert_func = collection.insert;
+            collection.insert = function(file, callback) {
                 var insert_callback = function(err, fileout) {
                     if(err !== undefined) {
                         //    Error callback
@@ -23,9 +23,9 @@ StacksightMeteor = {
                             Meteor.call('hookFileLoad', dataobj);
                         }
                     }
-                    callback.call(Collection, err, fileout);
+                    callback.call(collection, err, fileout);
                 }
-                insert_func.call(Collection, file, insert_callback);
+                insert_func.call(collection, file, insert_callback);
             }
         });
     }

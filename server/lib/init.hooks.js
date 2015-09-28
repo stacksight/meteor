@@ -1,21 +1,24 @@
 "use strict";
 
-Hooks.onLoggedIn = function (userId) {
-    Meteor.call('hookUserLogIn', userId);
-}
+Meteor.startup(function () {
 
-Hooks.onLoggedOut = function (userId) {
-    Meteor.call('hookUserLogOut', userId);
-}
+    Hooks.onLoggedIn = function (userId) {
+        Meteor.call('hookUserLogIn', userId);
+    }
 
-Hooks.onCreateUser = function (userId) {
-    Meteor.call('hookUserCreate', userId);
-}
+    Hooks.onLoggedOut = function (userId) {
+        Meteor.call('hookUserLogOut', userId);
+    }
 
-Hooks.onDeleteUser = function (userId) {
-    Meteor.call('hookUserDelete', userId);
-}
+    Hooks.onCreateUser = function (userId) {
+        Meteor.call('hookUserCreate', userId);
+    }
 
-Hooks.onCloseSession = function (userId) {
-    //Meteor.call('hookUserCloseSession', userId);
-}
+    Hooks.onDeleteUser = function (userId) {
+        Meteor.call('hookUserDelete', userId);
+    }
+
+    Hooks.onCloseSession = function (userId) {
+        //Meteor.call('hookUserCloseSession', userId);
+    }
+});

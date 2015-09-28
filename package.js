@@ -17,26 +17,22 @@ Package.onUse(function(api) {
 
     // Meteor packages
     api.use(['underscore', 'http']);
-    api.use(['raix:eventemitter']);
-    //api.use(['matb33:collection-hooks']);
+    api.use(['matb33:collection-hooks@0.8.0']);
     api.use(['differential:event-hooks@1.5.0']);
-    api.use(['dbarrett:dropzonejs@4.0.2'], { weak: true });
 
     // Settings
     api.addFiles('private/settings.js', ['server', 'client']);
 
     // Client files
     api.addFiles('client/startup/stacksight.load.js', ['client']);
-    api.addFiles('client/startup/dropzone.load.js', ['client']);
+    api.addFiles('client/init.js', ['client']);
 
     // Server files
-    api.addFiles('server/stacksight.methods.js', ['server']);
+    api.addFiles('server/init.js', ['server']);
     api.addFiles('server/hooks/users.methods.js', ['server']);
     api.addFiles('server/hooks/files.methods.js', ['server']);
+    api.addFiles('server/hooks/collections.methods.js', ['server']);
     api.addFiles('server/lib/init.hooks.js', ['server']);
-
-    // Common files
-    api.addFiles('client/init.js', ['client']);
 
     if (typeof api.export !== 'undefined') {
         api.export(['StacksightMeteor'], both);

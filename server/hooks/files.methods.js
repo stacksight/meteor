@@ -1,14 +1,6 @@
 "use strict";
 
-var appId = Meteor.call('stacksightSessionUp');
-
-var stacknode = Npm.require('stacksight')({
-    user: settings.meanDevToken,
-    appId: appId,
-    allow: true
-});
-
-stacknode.session.up();
+var stacknode = StacksightMeteor.stackNode();
 
 Meteor.methods({
     hookImageLoad: function(data) {
