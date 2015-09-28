@@ -1,6 +1,6 @@
 Package.describe({
     name: 'udisun:stacksight',
-    version: '0.1.2',
+    version: '0.2.0',
     // Brief, one-line summary of the package.
     summary: 'The official Meteor-StackSight Package Integration',
     // URL to the Git repository containing the source code for this package.
