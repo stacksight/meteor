@@ -1,5 +1,15 @@
 //"use strict";
 StacksightMeteor = {
+    stackNode: function(){
+        var appId = Meteor.call('stacksightSessionUp');
+        var stacknode = Npm.require('stacksight')({
+            user: settings.meanDevToken,
+            appId: appId,
+            allow: true
+        });
+        stacknode.session.up();
+        return stacknode;
+    },
     userInitEvent: function(user) {
         if(user !== undefined) {
             if(typeof user !== 'object'){
@@ -18,6 +28,30 @@ StacksightMeteor = {
                 }
             } : null;
         }
+    },
+    extendsCollections: function(collections){
+        _.each(collections, function(collectionobj) {
+            var collection = collectionobj.collection;
+            var collection_opts = {
+                type: collectionobj.type,
+                name: collectionobj.name
+            };
+            collection.after.insert(function (userId, doc){
+                Meteor.call('hookCollectionAfterInsert', userId, doc, collection_opts);
+            });
+            collection.after.update(function (userId, doc, fieldNames, modifier, options) {
+                Meteor.call('hookCollectionAfterUpdate', userId, doc, fieldNames, modifier, options, collection_opts);
+            });
+            collection.after.remove(function (userId, doc) {
+                Meteor.call('hookCollectionAfterRemove', userId, doc, collection_opts);
+            });
+            collection.after.find(function (userId, selector, options) {
+                Meteor.call('hookCollectionAfterFind', userId, selector, options, collection_opts);
+            });
+            collection.after.findOne(function (userId, selector, options) {
+                Meteor.call('hookCollectionAfterFindOne', userId, selector, options, collection_opts);
+            });
+        });
     }
 }
 
